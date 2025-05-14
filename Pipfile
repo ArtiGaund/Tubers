@@ -10,6 +10,9 @@ psycopg2 = "*"
 djangocms-admin-style = "*"
 django-ckeditor = "*"
 django-allauth = "*"
+gunicorn = "*"
+django-ckeditor-5 = "*"
+waitress = "*"
 
 [dev-packages]
 
