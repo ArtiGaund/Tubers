@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+env = environ.Env()
+environ.Env.read_env()  # Reads environment variables from a .env file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,11 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n=+^c3^j2prj*l0&*gyzor%3u*f*xq2ps(hlac_vwl$fl0ku%i'
+SECRET_KEY = env('SECRET_KEY', default='your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = ['tubers.vercel.app', '127.0.0.1', 'localhost']
 
 LOGIN_REDIRECT_URL = 'dashboard'
@@ -88,14 +91,7 @@ WSGI_APPLICATION = 'tubers.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lcotubers',
-        'USER': 'postgres',
-        'PASSWORD': '9839257474',
-        'HOST': 'localhost' 
-
-    }
+    'default': env.db('DATABASE_URL', default='postgres://postgres:9839257474@localhost:5432/lcotubers')
 }
 
 
